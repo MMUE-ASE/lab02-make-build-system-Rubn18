@@ -49,7 +49,7 @@ HEX = $(BUILDDIR)/$(TARGET).hex
 
 # P1.1 — List the two C source files (paths relative to the repo root).
 #         Example: SRCS = src/foo.c src/bar.c
-SRCS = src/gpio.c src/bar.c
+SRCS = src/gpio.c src/main.c
 
 # Assembly startup — provided, do not change.
 ASM_SRC = startup/startup_stm32f412zg.s
@@ -116,8 +116,10 @@ $(ELF): output/gpio.o output/main.o $(ASM_OBJ)
 #         $(HEX) rule: $(OBJCOPY) -O ihex   $< $@
 #
 # YOUR TWO RULES HERE
-$(BIN) rule: $(OBJCOPY) -O binary $< $@
-$(HEX) rule: $(OBJCOPY) -O ihex   $< $@
+$(BIN): $(ELF)
+	$(OBJCOPY) -O binary $< $@
+$(HEX): $(ELF)
+	$(OBJCOPY) -O ihex   $< $@
 
 
 # =============================================================================
@@ -149,8 +151,8 @@ OBJS = #$(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
 #               $(CC) $(CFLAGS) -c $< -o $@
 #
 # YOUR RULE HERE
-#$(OBJS): $(BUILDDIR)/%.o : $(SRCDIR)/%.c | $(BUILDDIR)
-#	$(CC) $(CFLAGS) -c $< -o $@
+# $(OBJS): $(BUILDDIR)/%.o : $(SRCDIR)/%.c | $(BUILDDIR)
+# 	$(CC) $(CFLAGS) -c $< -o $@
 
 
 # =============================================================================
