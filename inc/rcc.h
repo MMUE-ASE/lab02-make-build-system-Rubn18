@@ -13,7 +13,7 @@
  * RCC base address
  * RM0402 — Memory map, AHB1 peripherals
  * ----------------------------------------------------------------------- */
-#define RCC_BASE 0x40023800UL
+#define RCC_BASE 0x40023800
 
 /* -----------------------------------------------------------------------
  * RCC_AHB1ENR — AHB1 peripheral clock enable register
@@ -25,11 +25,11 @@
 /* TODO P3.1 — bit mask to enable the GPIOB clock
  *             Form: (1U << bit_number)
  *             Source: RM0402, RCC_AHB1ENR, field GPIOBEN             */
-#define RCC_AHB1ENR_GPIOBEN (0U)
+#define RCC_AHB1ENR_GPIOBEN (0x00000002)
 
 /* TODO P3.2 — bit mask to enable the GPIOC clock
  *             Source: RM0402, RCC_AHB1ENR, field GPIOCEN             */
-#define RCC_AHB1ENR_GPIOCEN (0U)
+#define RCC_AHB1ENR_GPIOCEN (0x00000004)
 
 /* Other ports — provided for reference */
 #define RCC_AHB1ENR_GPIOAEN (1U << 0U)

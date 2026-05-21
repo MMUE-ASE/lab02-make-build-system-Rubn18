@@ -14,6 +14,10 @@ BUILDDIR = output
 #
 # YOUR RULE HERE
 
+all: output/utils.o
+
+
+
 
 # This rule creates the output directory when needed — provided, do not change.
 $(BUILDDIR):
@@ -28,6 +32,10 @@ $(BUILDDIR):
 #                        ($@ = target         = output/utils.o)
 #
 # YOUR RULE HERE
+
+output/utils.o: utils.c | $(BUILDDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
 
 
 # TODO 3: Add .PHONY for "all"
