@@ -115,7 +115,7 @@ $(ELF): output/gpio.o output/main.o $(ASM_OBJ)
 #         $(BIN) rule: $(OBJCOPY) -O binary $< $@
 #         $(HEX) rule: $(OBJCOPY) -O ihex   $< $@
 #
-# YOUR TWO RULES HERE#
+# YOUR TWO RULES HERE
 $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $< $@
 $(HEX): $(ELF)
@@ -136,7 +136,7 @@ $(HEX): $(ELF)
 # P2.1 — Derive OBJS from SRCS using a substitution reference.
 #         Replace the src/%.c pattern with output/%.o
 #         Hint: $(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
-OBJS = #$(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
+OBJS = $(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
 
 # P2.2 — Replace the two explicit C rules with one static pattern rule.
 #         Steps (do them together before running make — having both the explicit
@@ -151,8 +151,8 @@ OBJS = #$(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
 #               $(CC) $(CFLAGS) -c $< -o $@
 #
 # YOUR RULE HERE
-# $(OBJS): $(BUILDDIR)/%.o : $(SRCDIR)/%.c | $(BUILDDIR)
-# 	$(CC) $(CFLAGS) -c $< -o $@
+ $(OBJS): $(BUILDDIR)/%.o : $(SRCDIR)/%.c | $(BUILDDIR)
+ 	$(CC) $(CFLAGS) -c $< -o $@
 
 
 # =============================================================================
