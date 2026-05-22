@@ -80,6 +80,7 @@ $(ASM_OBJ): $(ASM_SRC) | $(BUILDDIR)
 	$(CC) $(AS_FLAGS) -c $< -o $@
 
 
+
 # P1.5 — Compile src/gpio.c into output/gpio.o  (explicit rule).
 #         Target:       output/gpio.o
 #         Dependencies: src/gpio.c | $(BUILDDIR)
@@ -88,8 +89,6 @@ $(ASM_OBJ): $(ASM_SRC) | $(BUILDDIR)
 # YOUR RULE HERE
 output/gpio.o: src/gpio.c | $(BUILDDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
-
-
 
 # P1.6 — Compile src/main.c into output/main.o  (explicit rule).
 #         Same form as P1.5 but for main.c.
@@ -118,8 +117,10 @@ $(ELF): output/gpio.o output/main.o $(ASM_OBJ)
 # YOUR TWO RULES HERE
 $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $< $@
+
 $(HEX): $(ELF)
-	$(OBJCOPY) -O ihex   $< $@
+	$(OBJCOPY) -O ihex $< $@
+
 
 
 # =============================================================================
@@ -136,7 +137,7 @@ $(HEX): $(ELF)
 # P2.1 — Derive OBJS from SRCS using a substitution reference.
 #         Replace the src/%.c pattern with output/%.o
 #         Hint: $(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
-OBJS = $(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
+OBJS =
 
 # P2.2 — Replace the two explicit C rules with one static pattern rule.
 #         Steps (do them together before running make — having both the explicit
@@ -151,8 +152,6 @@ OBJS = $(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
 #               $(CC) $(CFLAGS) -c $< -o $@
 #
 # YOUR RULE HERE
- $(OBJS): $(BUILDDIR)/%.o : $(SRCDIR)/%.c | $(BUILDDIR)
- 	$(CC) $(CFLAGS) -c $< -o $@
 
 
 # =============================================================================
@@ -164,26 +163,18 @@ OBJS = $(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
 #         Recipe: rm -rf $(BUILDDIR)
 #
 # YOUR RULE HERE
-clean: 
-	rm -rf $(BUILDDIR)
 
 
 # P3.2 — "size": depends on $(ELF), prints the firmware size.
 #         Recipe: $(SIZE) $<
 #
 # YOUR RULE HERE
-size: $(ELF)
-	$(SIZE) $<
-
 
 
 # P3.3 — "flash": depends on $(ELF), programs the board.
 #         Recipe: bash scripts/flash.sh
 #
 # YOUR RULE HERE
-flash: $(ELF)
-	bash scripts/flash.sh
-
 
 
 # --- Help (provided — do not change) -----------------------------------------
@@ -201,4 +192,3 @@ help:
 #         List: all clean flash size help
 #
 # YOUR LINE HERE
-.PHONY: all clean flash size help

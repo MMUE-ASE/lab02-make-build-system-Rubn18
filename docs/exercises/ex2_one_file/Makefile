@@ -41,3 +41,4 @@ output/utils.o: utils.c | $(BUILDDIR)
 # TODO 3: Add .PHONY for "all"
 #
 # YOUR LINE HERE
+.PHONY: all
