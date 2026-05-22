@@ -51,6 +51,8 @@ HEX = $(BUILDDIR)/$(TARGET).hex
 #         Example: SRCS = src/foo.c src/bar.c
 SRCS = src/gpio.c src/main.c
 
+OBJS = $(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
+
 # Assembly startup — provided, do not change.
 ASM_SRC = startup/startup_stm32f412zg.s
 
@@ -87,15 +89,15 @@ $(ASM_OBJ): $(ASM_SRC) | $(BUILDDIR)
 #         Recipe:       $(CC) $(CFLAGS) -c $< -o $@
 #
 # YOUR RULE HERE
-output/gpio.o: src/gpio.c | $(BUILDDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+# output/gpio.o: src/gpio.c | $(BUILDDIR)
+# 	$(CC) $(CFLAGS) -c $< -o $@
 
 # P1.6 — Compile src/main.c into output/main.o  (explicit rule).
 #         Same form as P1.5 but for main.c.
 #
 # YOUR RULE HERE
-output/main.o: src/main.c | $(BUILDDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+# output/main.o: src/main.c | $(BUILDDIR)
+# 	$(CC) $(CFLAGS) -c $< -o $@
 
 
 
@@ -106,7 +108,7 @@ output/main.o: src/main.c | $(BUILDDIR)
 #                       ($^ = all dependencies listed above)
 #
 # YOUR RULE HERE
-$(ELF): output/gpio.o output/main.o $(ASM_OBJ)
+$(ELF): $(OBJS) $(ASM_OBJ)
 	$(CC) $(LDFLAGS) -o $@ $^
 
 
@@ -137,7 +139,7 @@ $(HEX): $(ELF)
 # P2.1 — Derive OBJS from SRCS using a substitution reference.
 #         Replace the src/%.c pattern with output/%.o
 #         Hint: $(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
-OBJS =
+#OBJS = $(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
 
 # P2.2 — Replace the two explicit C rules with one static pattern rule.
 #         Steps (do them together before running make — having both the explicit
@@ -152,6 +154,8 @@ OBJS =
 #               $(CC) $(CFLAGS) -c $< -o $@
 #
 # YOUR RULE HERE
+$(OBJS): $(BUILDDIR)/%.o : $(SRCDIR)/%.c | $(BUILDDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 
 # =============================================================================
