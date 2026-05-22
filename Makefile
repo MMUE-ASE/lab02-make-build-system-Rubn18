@@ -164,16 +164,16 @@ OBJS = $(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
 #         Recipe: rm -rf $(BUILDDIR)
 #
 # YOUR RULE HERE
-#clean: 
-#	rm -rf $(BUILDDIR)
+clean: 
+	rm -rf $(BUILDDIR)
 
 
 # P3.2 — "size": depends on $(ELF), prints the firmware size.
 #         Recipe: $(SIZE) $<
 #
 # YOUR RULE HERE
-#size: $(ELF)
-#	$(SIZE) $<
+size: $(ELF)
+	$(SIZE) $<
 
 
 
@@ -181,8 +181,8 @@ OBJS = $(SRCS:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
 #         Recipe: bash scripts/flash.sh
 #
 # YOUR RULE HERE
-#flash: $(ELF)
-#	bash scripts/flash.sh
+flash: $(ELF)
+	bash scripts/flash.sh
 
 
 
@@ -201,4 +201,4 @@ help:
 #         List: all clean flash size help
 #
 # YOUR LINE HERE
-#.PHONY: all clean flash size help
+.PHONY: all clean flash size help
