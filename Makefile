@@ -167,18 +167,25 @@ $(OBJS): $(BUILDDIR)/%.o : $(SRCDIR)/%.c | $(BUILDDIR)
 #         Recipe: rm -rf $(BUILDDIR)
 #
 # YOUR RULE HERE
+clean: 
+	rm -rf $(BUILDDIR)
 
 
 # P3.2 — "size": depends on $(ELF), prints the firmware size.
 #         Recipe: $(SIZE) $<
 #
 # YOUR RULE HERE
+size: $(ELF)
+	$(SIZE) $<
 
 
 # P3.3 — "flash": depends on $(ELF), programs the board.
 #         Recipe: bash scripts/flash.sh
 #
 # YOUR RULE HERE
+flash: $(ELF)
+	bash scripts/flash.sh
+
 
 
 # --- Help (provided — do not change) -----------------------------------------
@@ -196,3 +203,4 @@ help:
 #         List: all clean flash size help
 #
 # YOUR LINE HERE
+.PHONY: all clean flash size help
