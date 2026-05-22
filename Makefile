@@ -115,7 +115,7 @@ $(ELF): output/gpio.o output/main.o $(ASM_OBJ)
 #         $(BIN) rule: $(OBJCOPY) -O binary $< $@
 #         $(HEX) rule: $(OBJCOPY) -O ihex   $< $@
 #
-# YOUR TWO RULES HERE
+# YOUR TWO RULES HERE#
 $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $< $@
 $(HEX): $(ELF)
